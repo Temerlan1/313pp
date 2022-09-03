@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new user</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <p class="navbar-brand text-white">
+            <b th:object="${user}"><span class="align-middle" th:text="${user.getUsername()}"></span></b>
+            <span class="align-middle">with roles:</span>
+            <span class="align-middle" th:text="${user.getRoles()}"></span>
+        </p>
+        <form th:action="@{/logout1}" method="post">
+            <button type="submit" class="btn btn-dark text-secondary">Logout</button>
+        </form>
+    </div>
+</nav>
+
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 p-0">
+                <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" aria-controls="v-pills-home" aria-selected="true">Admin</a>
+                    <a class="nav-item nav-link" th:href="@{/user}">User</a>
+                </div>
+            </div>
+            <div class="col-10 px-0">
+                <div class="container-fluid">
+                    <h2 class="m-3 fw-bold">Admin panel</h2>
+                    <div class="tab-content" id="tabContent">
+                        <ul class="nav nav-tabs">
+                            <a class="nav-link" data-toggle="tab" href="/admin">Users Table</a>
+                            <a class="nav-link active" data-toggle="tab">New User</a>
+                        </ul>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="m-1">
+                                    <h5>All users</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md bg-white border">
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center ">
+                                <div class="card-body">
+
+
+                                    <form th:action="@{/admin}" th:object="${user}" method="post">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input
+                                                    type="text"
+                                                    name="username"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="first name..."
+                                            />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input
+                                                    type="text"
+                                                    name="lastName"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="last name..."
+                                            />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Age</label>
+                                            <input
+                                                    type="number"
+                                                    name="age"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="age..."
+                                            />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input
+                                                    type="text"
+                                                    name="password"
+                                                    class="form-control"
+                                                    value=""
+                                                    placeholder="password..."
+                                            />
+                                        </div>
+                                        <label for="role">Roles:</label>
+                                        <select multiple="multiple" th:field="*{roles}"
+                                                type="text" id="role">
+                                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+
+                                        </select>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">
+                                                Add user
+                                            </button>
+                                        </div>
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+</body>
+</html>

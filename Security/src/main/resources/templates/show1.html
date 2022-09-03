@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>All users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <p class="navbar-brand text-white">
+            <b th:object="${user}"><span class="align-middle" th:text="${user.getUsername()}"></span></b>
+            <span class="align-middle">with roles:</span>
+            <span class="align-middle" th:text="${user.getRoles()}"></span>
+        </p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-dark text-secondary">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 p-0">
+                <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                        <a class="nav-item nav-link" th:href="@{/admin}">Admin</a>
+                    </div>
+                    <a class="nav-link active" aria-controls="v-pills-home" aria-selected="true">User</a>
+                </div>
+            </div>
+            <div class="col-10 px-0">
+                <div class="container-fluid">
+                    <h2 class="m-3 fw-bold">Admin panel</h2>
+                    <div class="tab-content" id="tabContent">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="m-1">
+                                    <h5>About user</h5>
+                                </div>
+                            </div>
+
+                            <div class="card-body" bg-primary text-white>
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                    </tr>
+                                    <tr th:each="user : ${user}">
+                                        <td th:text="${user.id}">id</td>
+                                        <td th:text="${user.username}">name</td>
+                                        <td th:text="${user.lastname}">lastname</td>
+                                        <td th:text="${user.age}">age</td>
+                                        <td th:text="${user.getRoles()}">roles</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
